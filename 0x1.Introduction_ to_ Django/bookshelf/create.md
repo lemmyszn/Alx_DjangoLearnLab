@@ -14,7 +14,7 @@ new_book = Book.objects.create(
     published_date=date(1949, 6, 8),
     isbn='9780451524935',
     pages=328,
-    language='English'
+    cover='https://example.com/cover.jpg'
 )
 
 # Output

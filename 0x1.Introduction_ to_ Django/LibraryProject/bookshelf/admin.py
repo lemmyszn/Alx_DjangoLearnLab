@@ -9,13 +9,13 @@ from django.db import models
 class BookAdmin(admin.ModelAdmin):
     
     # Display fields in the list view
-    list_display = ('title', 'author', 'published_date', 'isbn', 'pages')
+    list_display = ('title', 'author', 'published_date', 'publication_year' , 'isbn', 'pages')
 
   # Enable search functionality
-    search_fields = ('title', 'author', 'isbn')
+    search_fields = ('title', 'author', 'isbn','publication_year')
     
     # Add filters for published date and author
-    list_filter = ('published_date', 'author')
+    list_filter = ('published_date', 'author','publication_year')
     
     # Optionally, you can configure ordering
     ordering = ('-published_date',)

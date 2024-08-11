@@ -10,7 +10,7 @@ from datetime import date
 # Creating a new book
 new_book = Book.objects.create(
     title='The Great Gatsby',
-    author='F. Scott Fitzgerald',
+    author='George Orwell',
     published_date=date(1925, 4, 10),
     isbn='9780743273565',
     pages=180,
@@ -19,7 +19,7 @@ new_book = Book.objects.create(
 
 # Output
 print(f'Created Book: {new_book}')
-Created Book: The Great Gatsby by F. Scott Fitzgerald
+Created Book: The Great Gatsby by George Orwell
 
 # Retrieve all books
 all_books = Book.objects.all()
@@ -30,11 +30,11 @@ book = Book.objects.get(id=1)  # Replace with the actual ID of the book
 print("Book by ID:", book)
 
 # Retrieve books by specific attributes
-books_by_author = Book.objects.filter(author='F. Scott Fitzgerald')
+books_by_author = Book.objects.filter(author='George Orwell')
 print("Books by Author:", list(books_by_author))
-All Books: [<Book: The Great Gatsby by F. Scott Fitzgerald>]
+All Books: [<Book: The Great Gatsby by George Orwell>]
 Book by ID: The Great Gatsby by F. Scott Fitzgerald
-Books by Author: [<Book: The Great Gatsby by F. Scott Fitzgerald>]
+Books by Author: [<Book: The Great Gatsby by George Orwell >]
 
 # Update an existing book
 book = Book.objects.get(id=1)  # Replace with the actual ID of the book
@@ -43,7 +43,7 @@ book.save()
 
 # Output
 print(f'Updated Book: {book}')
-Updated Book: The Great Gatsby (Updated) by F. Scott Fitzgerald
+Updated Book: The Great Gatsby (Updated) by George Orwell
 
 
 # Delete a specific book

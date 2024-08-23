@@ -31,3 +31,4 @@ class BookAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.CharField: {'widget': admin.widgets.AdminTextInputWidget}, 
     }
+

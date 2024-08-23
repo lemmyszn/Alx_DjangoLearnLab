@@ -40,3 +40,8 @@ class CustomUserManager(BaseUserManager): # type: ignore
 
         return self.create_user(username, email, date_of_birth, password, **extra_fields)
 
+from django.conf import settings
+
+class SomeModel(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+

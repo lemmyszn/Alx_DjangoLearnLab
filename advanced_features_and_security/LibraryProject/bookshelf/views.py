@@ -62,15 +62,22 @@ def secure_search(request):
     else:
         books = Book.objects.all()
     return render(request, 'bookshelf/book_list.html', {'books': books})
-from django.shortcuts import render, redirect
-from .forms import BookForm
 
-def add_book(request):
+from .forms import BookForm
+from django.shortcuts import render
+from .forms import ExampleForm
+from django.shortcuts import render, redirect
+from .forms import ExampleForm  # Importing ExampleForm
+
+def example_view(request):
     if request.method == 'POST':
-        form = BookForm(request.POST)
+        form = ExampleForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('book_list')
+            # Handle form data
+            return redirect('success_url')
     else:
-        form = BookForm()
+        form = ExampleForm()
     return render(request, 'bookshelf/form_example.html', {'form': form})
+
+
+

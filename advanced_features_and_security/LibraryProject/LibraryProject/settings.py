@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'relationship_app'
     'users'
+    'csp'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'LibraryProject.urls'
@@ -127,3 +129,34 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.CustomUser'
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
+import os
+
+# Set DEBUG to False in production
+DEBUG = False
+
+# Add the domain names that are allowed to access the app (update this for production)
+ALLOWED_HOSTS = ['yourdomain.com']
+
+# Security settings
+SECURE_BROWSER_XSS_FILTER = True  # Enable XSS filtering
+X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent MIME-type sniffing
+
+# HTTPS settings (make sure HTTPS is used in production)
+CSRF_COOKIE_SECURE = True  # Send CSRF cookies over HTTPS only
+SESSION_COOKIE_SECURE = True  # Send session cookies over HTTPS only
+
+# Content Security Policy (using django-csp or middleware)
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'")  # Restrict sources for scripts
+
+# Additional security settings (optional)
+SECURE_SSL_REDIRECT = True  # Redirect HTTP requests to HTTPS
+SECURE_HSTS_SECONDS = 31536000  # Enforce HTTP Strict Transport Security
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+# Prevent clickjacking attacks
+X_FRAME_OPTIONS = 'DENY'
+
+# Enable the browser’s built-in XSS protection
+SECURE_BROWSER_XSS_FILTER = True

@@ -15,3 +15,10 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+# models.py
+# Author: Represents an author with a one-to-many relationship to books.
+# Book: Represents a book with a title, publication year, and a foreign key to the author.
+
+# serializers.py
+# BookSerializer: Handles serialization and validation of the Book model.
+# AuthorSerializer: Serializes the Author model and includes a nested serializer for related books.

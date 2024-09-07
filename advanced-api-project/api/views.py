@@ -3,6 +3,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter  # Import Orderi
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Book
 from .seriealizers import BookSerializer
+from django_filters import rest_framework
 
 class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()

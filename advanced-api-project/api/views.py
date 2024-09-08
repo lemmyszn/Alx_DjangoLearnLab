@@ -2,6 +2,7 @@ from rest_framework import generics
 from django_filters import rest_framework as filters
 from .models import Book
 from seriealizers import BookSerializer
+from rest_framework.filters import OrderingFilter
 
 class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()

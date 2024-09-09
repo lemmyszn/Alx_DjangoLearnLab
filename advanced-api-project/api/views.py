@@ -3,6 +3,8 @@ from django_filters import rest_framework as filters
 from .models import Book
 from seriealizers import BookSerializer
 from rest_framework.filters import OrderingFilter
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+
 
 class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()

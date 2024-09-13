@@ -108,7 +108,7 @@ def profile(request):
 
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.views.generic import UpdateView, DeleteView
+from django.views.generic import UpdateView, DeleteView ,CreateView
 from django.urls import reverse_lazy
 from .models import Post, Comment
 from .forms import CommentForm
@@ -145,3 +145,19 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         comment = self.get_object()
         return self.request.user == comment.author
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'blog/add_comment.html'
+
+    def form_valid(self, form):
+        # Associate the comment with the post and the current user
+        post = get_object_or_404(Post, id=self.kwargs['post_id'])
+        form.instance.post = post
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        # Redirect to the post detail page after submitting the comment
+        return self.object.post.get_absolute_url()

@@ -6,9 +6,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from django import forms
 from django.db.models import Q
 
 # Models and Forms Imports
@@ -123,17 +120,17 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         comment = self.get_object()
         return self.request.user == comment.author
     
-def search(request):
+# Search Posts
+def search_posts(request):
     query = request.GET.get('q')
-    if query:
-        posts = Post.objects.filter(
-            Q(title__icontains=query) | Q(content__icontains=query) |
-            Q(tags__name__icontains=query)
-        ).distinct()
-    else:
-        posts = Post.objects.none()
+    posts = Post.objects.filter(
+        Q(title__icontains=query) | 
+        Q(content__icontains=query) |
+        Q(tags__name__icontains=query)
+    ).distinct() if query else Post.objects.none()
     return render(request, 'blog/search_results.html', {'posts': posts, 'query': query})
 
+# Tag Filtering View
 class TagPostListView(ListView):
     model = Post
     template_name = 'blog/post_list.html'

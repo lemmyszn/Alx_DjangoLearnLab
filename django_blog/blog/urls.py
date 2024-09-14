@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 from . import views
+from .views import PostListView, search
 
 urlpatterns = [
     path('posts/', views.PostListView.as_view(), name='post-list'),
@@ -14,7 +15,9 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(template_name='blog/logout.html'), name='logout'),
     path('register/',views.register, name='register'),
     path('profile/', views.profile, name='profile'),
-
+    path('search/', search, name='search'),
+    path('tags/<str:tag_name>/', PostListView.as_view(), name='tag_posts'),
+ 
 ]
 
 from django.urls import path

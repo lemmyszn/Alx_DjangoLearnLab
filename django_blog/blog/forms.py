@@ -35,3 +35,17 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'tags']
+
+class TagWidget(forms.TextInput):
+    template_name = 'widgets/tag_widget.html'  # Define a custom template for the tag widget
+
+class PostForm(forms.ModelForm):
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        widget=TagWidget(attrs={'class': 'tag-input', 'placeholder': 'Add tags'}),
+        required=False
+    )
+
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'tags']

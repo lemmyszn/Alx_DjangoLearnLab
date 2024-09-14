@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from blog.models import Post, Tag, Comment
 from django.forms.widgets import CheckboxSelectMultiple
 
-class TagWidget(forms.TextInput):
+class TagWidget():
     def __init__(self, attrs=None):
         default_attrs = {'placeholder': 'Enter tags separated by commas'}
         if attrs:

@@ -1,15 +1,6 @@
-<!-- blog/templates/blog/post_form.html -->
-{% extends "blog/base.html" %}
-{% block content %}
-  <h1>{{ view.object.pk|default:"Create a New" }} Post</h1>
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-  </form>
-{% endblock %}
+<!-- post_form.html -->
 <form method="POST">
   {% csrf_token %}
-  {{ form.as_p }}  <!-- This will render all form fields including tags -->
+  {{ form.as_p }}  <!-- This renders the form fields including tags -->
   <button type="submit">Save</button>
 </form>

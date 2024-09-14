@@ -4,6 +4,20 @@ from django.contrib.auth.models import User
 from blog.models import Post, Tag, Comment
 from django.forms.widgets import CheckboxSelectMultiple
 
+class TagWidget(forms.TextInput):
+    def __init__(self, attrs=None):
+        default_attrs = {'placeholder': 'Enter tags separated by commas'}
+        if attrs:
+            default_attrs.update(attrs)
+        super().__init__(attrs=default_attrs)
+
+    def format_value(self, value):
+        if value is None:
+            return ''
+        if isinstance(value, list):
+            return ', '.join([str(v) for v in value])
+        return value
+
 # User Registration Form
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()

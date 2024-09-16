@@ -45,7 +45,12 @@ INSTALLED_APPS = [
 # Custom user model setup
 AUTH_USER_MODEL = 'accounts.customuser'
 
-
+# Add token authentication to DRF settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -9,7 +9,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .models import Post, Like
 from .serializers import PostSerializer
-from .serializers import NotificationSerializer
 from .models import Notification
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -44,18 +43,19 @@ class UserFeedView(generics.ListAPIView):
         # Return posts from these users, ordered by creation date
         return Post.objects.filter(author__in=following_users).order_by('-created_at')
 
+
 class LikePostView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, pk, *args, **kwargs):
-        post = get_object_or_404(Post, pk=pk) 
+        post = get_object_or_404(Post, pk=pk)
         like, created = Like.objects.get_or_create(user=request.user, post=post)
         
         if not created:
             return Response({"error": "You have already liked this post."}, status=status.HTTP_400_BAD_REQUEST)
 
         # Create a notification for the post author
-        Notification.objects.create( # type: ignore
+        Notification.objects.create(
             recipient=post.author,
             actor=request.user,
             verb='liked your post',
@@ -68,7 +68,7 @@ class UnlikePostView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, pk, *args, **kwargs):
-        post = get_object_or_404(Post, pk=pk) # type: ignore
+        post = get_object_or_404(Post, pk=pk)
         like = Like.objects.filter(user=request.user, post=post).first()
         
         if not like:
@@ -76,4 +76,3 @@ class UnlikePostView(generics.GenericAPIView):
 
         like.delete()
         return Response({"message": "Post unliked."}, status=status.HTTP_200_OK)
-    

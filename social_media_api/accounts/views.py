@@ -7,6 +7,8 @@ from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from .serializers import UserRegistrationSerializer, UserSerializer, PostSerializer
 from .models import CustomUser, Post, Follow
+from rest_framework.permissions import IsAuthenticated
+
 
 # Helper function for token generation
 def generate_token_response(user):

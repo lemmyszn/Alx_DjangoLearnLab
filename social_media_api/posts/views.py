@@ -1,4 +1,5 @@
 # posts/views.py
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, permissions, filters
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
@@ -47,7 +48,7 @@ class LikePostView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, pk, *args, **kwargs):
-        post = get_object_or_404(Post, pk=pk) # type: ignore
+        post = get_object_or_404(Post, pk=pk) 
         like, created = Like.objects.get_or_create(user=request.user, post=post)
         
         if not created:

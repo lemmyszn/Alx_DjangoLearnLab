@@ -12,7 +12,7 @@ from rest_framework.permissions import IsAuthenticated
 # User registration (open to all users)
 class RegisterUserView(generics.CreateAPIView):
     serializer_class = UserRegistrationSerializer
-    permission_classes = [AllowAny]  # No authentication required for registration
+    permission_classes = [IsAuthenticated]  # No authentication required for registration
 
 # Custom token authentication
 class CustomAuthToken(ObtainAuthToken):
